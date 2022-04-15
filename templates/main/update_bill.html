@@ -1,0 +1,369 @@
+{% extends 'base/base.html' %}
+
+
+
+{% block title %}Add Bike{% endblock title %}
+
+
+{% block head %}
+
+<style>
+
+    fieldset {
+        border: 1px solid #000;
+        margin: 40px;
+        padding: 20px;
+    }
+
+</style>
+
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+           
+         
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Add Ddoctor</strong>
+            </div>
+            <div class="card-body">
+
+                <div class="content" id="message_div" style="display: none;">
+                    <!-- Animated -->
+                    <div class="animated fadeIn" id="message">
+                       
+                        
+                    </div>
+                </div>
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <form action="#" enctype="multipart/form-data" method="post" id="inward_form">
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="name" class="control-label mb-1">patient_name</label>
+                                {{ form.patient_name }}
+                                <small class="text-danger"> {{ form.patient_name.errors.as_text }} </small>
+
+                            </div>
+
+                            <div style="display: flex;justify-content: center;">
+                                <button onclick="dynamic_textbox()" id="payment-button" style="background-color: #007bff; border-color: #007bff; padding: 10px;border-radius: 12px;color: white;" type="button" class="btn ">
+                                     <span id="payment-button-amount">Add More  +</span>
+                                 </button>
+                            </div><br>
+                               
+
+                            <div id="dyanamic">
+
+
+
+                            {% for i in order_detials_data %}
+
+                                <fieldset> 
+                                    <legend style="font-size: 15px;width: 14%;max-width: 100%;padding: 12px;"> Work {{ forloop.counter }}</legend>
+                                    <input type="hidden" value="{{ i.id }}" name="work_id">
+                                    <div class="form-group">
+                                        <label for="name" class="control-label mb-1">Product</label>
+                                        <input type="text" name="product" class="form-control" id="product" maxlength="225" value="{{ i.product }}" required="">
+                                        <small class="text-danger">  </small>
+                                    </div>
+                                
+                                    <div style="display:grid;grid-template-columns: auto auto;gap: 0em 2em;">
+                                        <div class="form-group">
+                                            <label for="name" class="control-label mb-1">teeth1</label>
+                                            <input type="number" name="teeth1" class="form-control" value="{{ i.teeth1 }}" id="total_amount" required="">
+                                            <small class="text-danger">  </small>
+                                            
+                                        </div>
+                                    
+                                        <div class="form-group">
+                                            <label for="name" class="control-label mb-1">teeth2</label>
+                                            <input type="number" name="teeth2" class="form-control" value="{{ i.teeth2 }}" id="total_amount" required="">
+                                            <small class="text-danger">  </small>
+                                        </div>
+                                            
+                                        <div class="form-group">
+                                        <label for="name" class="control-label mb-1">teeth3</label>
+                                            <input type="number" name="teeth3" class="form-control" value="{{ i.teeth3 }}" id="total_amount" required="">
+                                            <small class="text-danger">  </small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="name" class="control-label mb-1">teeth4</label>
+                                            <input type="number" name="teeth4" class="form-control" value="{{ i.teeth4 }}" id="total_amount" required="">
+                                            <small class="text-danger">  </small>
+                                            
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name" class="control-label mb-1">Unit</label>
+                                        <input type="number" name="unit" class="form-control" value="{{ i.unit }}" id="total_amount" required="">
+                                        <small class="text-danger">  </small>
+                                    
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name" class="control-label mb-1">Total Amount</label>
+                                        <input type="number" name="total_amount" class="form-control" value="{{ i.total_amount }}" id="total_amount" required="">
+                                        <small class="text-danger">  </small>
+                                    
+                                    </div> 
+                                </fieldset>
+
+                                {% endfor %}
+
+                            </div>
+                            
+                            
+
+
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <span id="payment-button-amount">Create Product</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div><!--/.col-->
+</div>
+
+
+{% endblock content %}
+
+
+{% block js %}
+    
+
+<script>
+    
+   
+
+
+    g_count = {{bill_count}} + 1
+    
+           
+
+
+    
+    function dynamic_textbox(){
+
+
+       
+        
+
+
+       
+      
+       
+      
+       
+            var myHtml =   '<fieldset> <legend style="font-size: 15px;width: 14%;max-width: 100%;padding: 12px;"> Work ' + g_count + '</legend>'
+               
+            + `<input type="hidden" value="" name="work_id">`
+                 
+            +   `<div class="form-group">
+                <label for="name" class="control-label mb-1">Product</label>
+                <input type="text" name="product" class="form-control" id="product" maxlength="225" required="">
+                <small class="text-danger">  </small>
+    
+    
+            </div>
+            <div style="display:grid;grid-template-columns: auto auto;gap: 0em 2em;">
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">teeth1</label>
+                <input type="number" name="teeth1" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>
+    
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">teeth2</label>
+                <input type="number" name="teeth2" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">teeth3</label>
+                <input type="number" name="teeth3" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">teeth4</label>
+                <input type="number" name="teeth4" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">Unit</label>
+                <input type="number" name="unit" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>
+            <div class="form-group">
+                <label for="name" class="control-label mb-1">Total Amount</label>
+                <input type="number" name="total_amount" class="form-control" id="total_amount" required="">
+                <small class="text-danger">  </small>
+    
+            </div>`
+            
+            + ' </fieldset>';
+
+
+            $('#dyanamic').append(myHtml);
+            
+
+            g_count = g_count + 1
+       
+    }
+
+    
+
+    
+
+    document
+    .getElementById("inward_form")
+    .addEventListener("submit", function (e) {
+
+        alert('here1')
+
+
+        e.preventDefault();
+
+        
+        product = document.getElementsByName("product")
+        teeth1 = document.getElementsByName("teeth1");
+        teeth2 = document.getElementsByName("teeth2");
+        teeth3 = document.getElementsByName("teeth3");
+        teeth4 = document.getElementsByName("teeth4");
+        work_id = document.getElementsByName("work_id");
+        unit = document.getElementsByName("unit");
+        total_amount = document.getElementsByName("total_amount");
+        patient_name = document.getElementById("patient_name").value;
+
+        product_arr = []
+        teeth1_arr = []
+        teeth2_arr = []
+        teeth3_arr = []
+        teeth4_arr = []
+        unit_arr = []
+        work_id_arr = []
+        total_amount_arr = []
+        
+        for (i = 0; i < (g_count-1); i++) {
+          
+            product_arr.push(product[i].value);
+            teeth1_arr.push(teeth1[i].value);
+            teeth2_arr.push(teeth2[i].value);
+            teeth3_arr.push(teeth3[i].value);
+            teeth4_arr.push(teeth4[i].value);
+            unit_arr.push(unit[i].value);
+            work_id_arr.push(work_id[i].value);
+            total_amount_arr.push(total_amount[i].value);
+
+            alert('in for')
+            
+
+        }
+
+        alert('product_arr')
+        alert(product_arr)
+
+        let form_data = {
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            product: product_arr,
+            teeth1: teeth1_arr,
+            teeth2: teeth2_arr,
+            teeth3: teeth3_arr,
+            teeth4 : teeth4_arr,
+            work_id : work_id_arr,
+            unit : unit_arr,
+            total_amount : total_amount_arr,
+            patient_name : patient_name,
+          }
+
+  
+  
+        submit_form(form_data);
+
+    });
+
+    function submit_form(form_data) {
+
+        alert('here2')
+
+
+        $.ajax({   
+            cache: false,                    // initialize an AJAX request
+            type: "POST",
+            url: "{% url 'update_bill' bill_instance %}",
+            data: form_data,     // add the country id to the POST parameters
+
+            success: function (data) {   // `data` is from `get_topics_ajax` view function
+
+                if (data.status == 'done'){
+                    window.location.href = "{% url 'list_bill' doctor_id %}";
+                }
+
+                else if (data.error !== undefined){
+                    var a = JSON.parse(data.error)
+    
+                    console.log(a)
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    $("#message_div").css("display","contents");
+                    var div = document.getElementById('message');
+                    for (var name in a) {
+                        for (var i in a[name]) {
+                            console.log(name) 
+                            div.innerHTML += `<div class="alert alert-danger alert-dismissible fade show" id="message" role="alert"> <strong>` + name + ` ` + `</strong>` + a[name][i].message + `<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>`;
+                            console.log(a[name][i].message) 
+                        }
+                    }
+    
+                }
+
+                else{
+                    console.log('here')
+                    document.body.scrollTop = document.documentElement.scrollTop = 0;
+                    $("#message_div").css("display","contents");
+                    var div = document.getElementById('message');
+                    div.innerHTML += `<div class="alert alert-danger alert-dismissible fade show" id="message" role="alert">` +  data.status + `<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">&times;</span></button>`;
+    
+                }
+            }
+
+        });
+
+    }
+
+    
+
+
+
+</script>
+{% endblock js %}
+
+

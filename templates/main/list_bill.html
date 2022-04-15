@@ -1,0 +1,167 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Product List{% endblock title %}
+
+{% block head %}
+
+<style>
+    .btn_downlaod {
+      background-color: DodgerBlue;
+      border: none;
+      color: white;
+      padding: 12px 30px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    
+    /* Darker background on mouse-over */
+    .btn_downlaod:hover {
+      background-color: RoyalBlue;
+    }
+    </style>
+
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+           
+            {% comment %} <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="#">Dashboard</a></li>
+                            <li><a href="#">Product</a></li>
+                            <li class="active">List</li>
+                        </ol>
+                    </div>
+                </div>
+            </div> {% endcomment %}
+        </div>
+    </div>
+</div>
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+
+
+<div style="justify-content: center;display: flex;align-items: center;">
+    <a href="{% url 'add_bill' instance.id %}"> <button id="payment-button" style="background-color: #40a94b; border: #40a94b;  padding: 10px;border-radius: 12px;" type="button" class="btn-info ">
+          <span id="payment-button-amount">Add Order  +</span>
+      </button> </a>
+    
+ </div><br>
+
+
+{% comment %} 
+<p>
+    
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Stock Report
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      
+
+        <form method="get" action="{% url 'generate_report' %}" style="padding:15px;">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                {{ stock_filter.form }}
+            
+            </div> <br>
+            
+            <button class="btn btn-primary" type="submit" > Search </button>
+
+        </form>
+    </div>
+  </div> {% endcomment %}
+
+  
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="box-title"> List Orders</h4>
+            </div>
+            <div class="card-body--">
+                <div class="table-stats order-table ov-h">
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th class="serial">#</th>
+                                <th>Date</th>
+                                <th>Patient Name</th>
+                                <th>total amount</th>
+                                <th>Action</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if data %}
+                            {% for i in data %}
+                            <tr>
+                                <td class="serial">{{ forloop.counter }}</td>
+                                <td>jsd</td>
+                                <td>{{ i.patient_name }}</td>
+                                <td>{{ i.total_amount }}</td>
+
+                                <td>  
+
+                                    <a href="{% url 'generate_bill' i.id %}"> <button id="payment-button"  style="background-color: #40a94b; border: #40a94b;  padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                         <span id="payment-button-amount">Bill</span>
+                                     </button>  </a>
+
+                                    <a href="{% url 'list_payment' i.id %}"> <button id="payment-button"  style="background-color: #40a94b; border: #40a94b;  padding: 10px;border-radius: 12px;" type="submit" class="btn-info ">
+                                         <span id="payment-button-amount">Payment</span>
+                                     </button>  </a>
+
+                                     <button class="btn btn-secondary rounded-pill" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </button>
+
+                                    <div class="dropdown float-right mt-5">
+                                            
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="{% url 'update_bill' i.id %}">Update </a>
+                                            <a class="dropdown-item" href="{% url 'delete_bill' i.id %}">Delete</a>
+                                        </div>
+                                    </div>
+                                     
+ 
+                                 </td>
+                               
+                                 
+
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                                <tr><td>No Product Data</td></tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div> <!-- /.table-stats -->
+            </div>
+        </div> <!-- /.card -->
+    </div>  <!-- /.col-lg-8 -->
+
+    
+</div>
+
+
+
+<script>
+    
+
+    
+</script>
+
+
+
+{% endblock content %}
