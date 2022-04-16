@@ -13,34 +13,34 @@ from .forms import *
 
 
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def index(request):
 
-    if request.user.is_superuser:
 
-        pay = [] 
 
-        orders_count = order_detials.objects.all().count()
+    pay = [] 
 
-        payment_data = payments.objects.all()
+    orders_count = order_detials.objects.all().count()
 
-        doctors_data = doctor.objects.all().count()
+    payment_data = payments.objects.all()
 
-        for i in payment_data:
-            pay.append(i.amount)
+    doctors_data = doctor.objects.all().count()
 
-        amount = sum(pay)
+    for i in payment_data:
+        pay.append(i.amount)
+
+    amount = sum(pay)
+    
+
+    context = {
         
+        'orders_count' : orders_count,
+        'amount' : amount,
+        'doctors_data' : doctors_data,
+        
+    }
 
-        context = {
-            
-            'orders_count' : orders_count,
-            'amount' : amount,
-            'doctors_data' : doctors_data,
-            
-        }
-
-        return render(request, 'dashboard.html', context)
+    return render(request, 'dashboard.html', context)
 
 
 
