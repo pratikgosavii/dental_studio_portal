@@ -5,6 +5,7 @@ from .forms import *
 from django.http import FileResponse, HttpResponse, JsonResponse
 
 
+from django.contrib.auth.decorators import login_required
 from reportlab.platypus import SimpleDocTemplate, Table, Paragraph, TableStyle
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
@@ -25,6 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
+@login_required(login_url='login')
 def add_doctor(request):
 
     if request.method == 'POST':
@@ -52,6 +54,7 @@ def add_doctor(request):
         return render(request, 'main/add_doctor.html', {'form' : form})
 
 
+@login_required(login_url='login')
 def update_doctor(request, doctor_id):
 
     if request.method == 'POST':
@@ -81,6 +84,7 @@ def update_doctor(request, doctor_id):
         return render(request, 'main/add_doctor.html', {'form' : form})
 
 
+@login_required(login_url='login')
 def delete_doctor(request, doctor_id):
 
    doctor.objects.get(id = doctor_id).delete()
@@ -89,6 +93,7 @@ def delete_doctor(request, doctor_id):
 
 
 
+@login_required(login_url='login')
 def list_doctor(request):
 
     data = doctor.objects.all()
@@ -101,6 +106,7 @@ def list_doctor(request):
     return render(request, 'main/list_doctor.html', context)
 
 
+@login_required(login_url='login')
 def add_bill(request, doctor_id):
 
 
@@ -162,6 +168,7 @@ def add_bill(request, doctor_id):
 
 
 
+@login_required(login_url='login')
 def update_bill(request, bill_id):
 
     bill_instance = order.objects.get(id=bill_id)
@@ -253,6 +260,7 @@ def update_bill(request, bill_id):
 
 
 
+@login_required(login_url='login')
 def list_bill(request, doctor_id):
 
     instance = doctor.objects.get(id=doctor_id)
@@ -270,6 +278,7 @@ def list_bill(request, doctor_id):
 
 
 
+@login_required(login_url='login')
 def delete_bill(request, bill_id):
 
     bill_instance = order.objects.get(id=bill_id)
@@ -294,6 +303,7 @@ def delete_bill(request, bill_id):
 
 
 
+@login_required(login_url='login')
 def add_payment(request, bill_id):
 
     if request.method == 'POST':
@@ -348,6 +358,7 @@ def add_payment(request, bill_id):
 
 
 
+@login_required(login_url='login')
 def update_payment(request, payment_id):
 
     payment_instance = payments.objects.get(id=payment_id)
@@ -401,6 +412,7 @@ def update_payment(request, payment_id):
 
 
 
+@login_required(login_url='login')
 def list_payment(request, bill_id):
 
     instance = order.objects.get(id=bill_id)
@@ -431,6 +443,7 @@ def list_payment(request, bill_id):
 
 
 
+@login_required(login_url='login')
 def delete_payment(request, payment_id):
 
     payment_instance = payments.objects.get(id=payment_id)
@@ -486,6 +499,7 @@ def number_to_word(number):
 
 
 
+@login_required(login_url='login')
 def generate_bill(request, order_id):
 
 
