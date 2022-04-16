@@ -31,4 +31,4 @@ def index(request):
             
         }
 
-        return render(request, 'dashboard.html')
+        return render(request, 'dashboard.html', context)
