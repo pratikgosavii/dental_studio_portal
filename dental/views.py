@@ -16,8 +16,6 @@ from .forms import *
 @login_required(login_url='login')
 def index(request):
 
-
-
     pay = [] 
 
     orders_count = order_detials.objects.all().count()
